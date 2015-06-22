@@ -1,4 +1,4 @@
-angular.module('SnippetThemeBootstrap', ['Snippets'])
+angular.module('SnippetsThemeBootstrap', ['Snippets'])
 
   .config(['snippetsProvider', function (snippetsProvider) {
     snippetsProvider.configure({
