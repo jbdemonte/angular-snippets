@@ -1,0 +1,24 @@
+{
+  "name": "angular-snippets",
+  "version": "1.0.0",
+  "main": "dist/angular-snippets.min.js",
+  "description": "AngularJS directives to display source code with tabs and syntax highlighter (prism)",
+  "authors": [
+    "Jean-Baptiste DEMONTE <jbdemonte@gmail.com>"
+  ],
+  "ignore": [
+    "**/.*",
+    "assets",
+    "src",
+    "*.json",
+    "README.md"
+  ],
+  "keywords": [
+    "angular",
+    "code",
+    "tabs",
+    "syntax",
+    "highlighter",
+    "prism"
+  ]
+}
