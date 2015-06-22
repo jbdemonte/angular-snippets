@@ -12,6 +12,7 @@
     "demo",
     "src",
     "*.json",
+    "gulpfile.js",
     "README.md"
   ],
   "keywords": [
