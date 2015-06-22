@@ -9,6 +9,7 @@
   "ignore": [
     "**/.*",
     "assets",
+    "demo",
     "src",
     "*.json",
     "README.md"
@@ -22,6 +23,7 @@
     "prism"
   ],
   "dependencies": {
-    "angular": "1.2 - 1.4"
+    "angular": "1.2 - 1.4",
+    "prism": "~1.0.0"
   }
 }
