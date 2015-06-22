@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+
+  <head>
+    <title>Angular-snippets</title>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Angular-snippets : AngularJS directives to display source code with tabs and syntax highlighter (prism)">
+    <link rel="stylesheet" type="text/css" media="screen" href="vendors/prism/prism.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="../src/theme/bootstrap/style.css">
+
+    <script src="vendors/prism/prism.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="../dist/angular-snippets.min.js"></script>
+    <script src="../src/theme/bootstrap/theme.js"></script>
+    <script>
+      angular.module('MyApp', ['Snippets', 'SnippetThemeBootstrap']);
+    </script>
+    <style>
+      body {
+        padding: 20px;
+      }
+      iframe {
+        width: 100%;
+        height: 300px;
+        background-color: #dadada;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Current page</h2>
+    <snippets files="['index.html', 'unknown.js']"></snippets>
+
+    <h2>Code snippets</h2>
+    <snippets path="snippets/" files="['index.html', 'app.js']">
+      <pane snippet="{name: 'run'}"><iframe src="snippets/index.html"></iframe></pane>
+    </snippets>
+  </body>
+</html>

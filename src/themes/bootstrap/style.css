@@ -1,0 +1,18 @@
+.nav>li.error>a,
+.nav>li.error>a:focus,
+.nav>li.error>a:hover {
+  color: red;
+  text-decoration: none;
+  background-color: transparent;
+  cursor: not-allowed;
+}
+.error a:after {
+  font-size: 10px;
+  content: " (404)";
+}
+.tab-pane:not(.active) {
+  display: none;
+}
+pre {
+  max-height: 300px;
+}

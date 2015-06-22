@@ -6,7 +6,7 @@ var gulp = require("gulp"),
  * Build non minified version
  */
 gulp.task("main", function() {
-  return gulp.src("src/angular-snippets.js")
+  return gulp.src("src/**/*")
     .pipe(gulp.dest("dist/"));
 });
 
