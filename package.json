@@ -1,0 +1,17 @@
+{
+  "name": "angular-snippets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/angular-snippets.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "GPL-3.0+",
+  "devDependencies": {
+    "bower": "^1.4.1",
+    "gulp": "^3.9.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.2.0"
+  }
+}
