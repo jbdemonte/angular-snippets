@@ -1,5 +1,7 @@
 # angular-snippets
 
+[Project page](http://jbdemonte.github.io/angular-snippets/)
+
 Angular directives to display code.
  
 - Use [Prism](http://prismjs.com/) syntax highlighter
