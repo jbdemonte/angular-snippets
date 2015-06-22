@@ -43,23 +43,15 @@
       <section id="main_content" class="inner">
           <h1><a id="angular-snippets" class="anchor" href="#angular-snippets" aria-hidden="true"><span class="octicon octicon-link"></span></a>angular-snippets</h1>
 
-          <p>Angular directives to display code.</p>
+          <p>Angular direct-ives to display code.</p>
 
           <ul>
             <li>Use <a href="http://prismjs.com/">Prism</a> syntax highlighter</li>
             <li>Fully configurable by templates and css</li>
+            <li>Support theme</li>
           </ul>
 
-        <h2>Examples</h2>
-
-
-        <snippets files="['index.html']">
-          <pane snippet="{name: 'Current code', icon: 'fa-code', cls: 'right'}">
-            <pre><code class="language-javascript">
-&lt;snippets files="['index.html']"&gt;&lt;/snippets&gt;
-            </code></pre>
-          </pane>
-        </snippets>
+        <h2>Example</h2>
 
         <snippets path="snippets/demo" files="['index.html', 'app.js', 'missing.css']">
           <pane snippet="{name: 'Current code', icon: 'fa-code', cls: 'right'}">
@@ -74,10 +66,33 @@
           <pane snippet="{name: 'run', icon: 'fa-cog', cls: 'right'}"><iframe src="snippets/demo/index.html"></iframe></pane>
         </snippets>
 
+        <h2>Getting started</h2>
+        <h3 id="dependencies">Dependencies</h3>
+        <ul>
+          <li><a href="http://angularjs.org">AngularJS</a></li>
+          <li><a href="http://prismjs.com/">Prism</a></li>
+        </ul>
+        <h3>installation</h3>
+        You can either download the latest version on the <a href="https://github.com/jbdemonte/angular-snippets">github repository</a> or use <a href="http://bower.io/">Bower</a> to install it automatically:
+        <pre><code class="language-bash">bower install angular-snippets</code></pre>
+        Bower will also install its <a href="#dependencies">dependencies</a>.
+
+        Load the packages into your HTML page:
+        <pre><code class="language-markup">
+&lt;link rel="stylesheet" type="text/css" href="path/to/prism/prism.css"&gt;
+&lt;script src="path/to/prism/prism.js"&gt;&lt;/script&gt;
+&lt;script src="path/to/angular-snippets.min.js"&gt;&lt;/script&gt;</code></pre>
+
+        You can use official themes, if so, you also need to load it.
+        <pre><code class="language-markup">
+&lt;link rel="stylesheet" type="text/css" href="path/to/theme/bootstrap/style.css"&gt;
+&lt;script src="path/to/theme/bootstrap/theme.js"&gt;&lt;/script&gt;</code></pre>
+        
+
         <h2>API</h2>
         <h3>Provider</h3>
         <h4>snippetsProvider</h4>
-        <em>snippetsProvider</em> allows to configure the directives templates and classes.
+        If you don't use an official theme or want to extend it, you can use <em>snippetsProvider</em> to configure the module:
         <pre><code class="language-javascript">
 app.config(function(snippetsProvider) {
   snippetsProvider.configure({
