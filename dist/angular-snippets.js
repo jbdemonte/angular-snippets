@@ -1,3 +1,11 @@
+/*!
+ *  angular-snippets
+ *  Version   : 1.0.0
+ *  Date      : 2015-06-22
+ *  Author    : DEMONTE Jean-Baptiste
+ *  Contact   : jbdemonte@gmail.com
+ *  Licence   : GPL v3 : http://www.gnu.org/licenses/gpl.html
+ */
 (function (angular) {
   angular.module('Snippets', [])
 
