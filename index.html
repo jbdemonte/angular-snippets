@@ -72,7 +72,7 @@
           <li><a href="http://angularjs.org">AngularJS</a></li>
           <li><a href="http://prismjs.com/">Prism</a></li>
         </ul>
-        <h3>installation</h3>
+        <h3>Installation</h3>
         You can either download the latest version on the <a href="https://github.com/jbdemonte/angular-snippets">github repository</a> or use <a href="http://bower.io/">Bower</a> to install it automatically:
         <pre><code class="language-bash">bower install angular-snippets</code></pre>
         Bower will also install its <a href="#dependencies">dependencies</a>.
@@ -87,7 +87,17 @@
         <pre><code class="language-markup">
 &lt;link rel="stylesheet" type="text/css" href="path/to/theme/bootstrap/style.css"&gt;
 &lt;script src="path/to/theme/bootstrap/theme.js"&gt;&lt;/script&gt;</code></pre>
-        
+
+        <h2>Utilisation</h2>
+        <h3>Dependency</h3>
+        Add into your application definition, the module and, if so, the theme dependencies:
+        <pre><code class="language-javascript">angular.module('MyApp', ['Snippets', 'SnippetsThemeBootstrap']);</code></pre>
+
+        Start to use it in your HTML page:
+        <pre><code class="language-markup">
+&lt;snippets path="snippets/" files="['index.html', 'app.js']"&gt;
+  &lt;pane snippet="{name: 'run'}"&gt;&lt;iframe src="snippets/index.html"&gt;&lt;/iframe&gt;&lt;/pane&gt;
+&lt;/snippets&gt;</code></pre>
 
         <h2>API</h2>
         <h3>Provider</h3>
@@ -108,8 +118,7 @@ app.config(function(snippetsProvider) {
       templateUrl: 'partials/pane.html'
     }
   });
-});
-        </code></pre>
+});</code></pre>
 
         <h3>Directive</h3>
         <h3>snippets</h3>
