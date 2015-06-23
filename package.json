@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/angular-snippets.min.js",
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS"
+    "test": "./node_modules/karma/bin/karma start tests/karma.conf.js --single-run --browsers PhantomJS"
   },
   "repository": {
     "type": "git",
