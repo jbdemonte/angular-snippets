@@ -13,26 +13,41 @@
    * Configure snippets by providing templates / templatesUrl
    */
     .provider('snippets', function () {
-      var options = {
-        cls: {
-          missing: 'error'
+      var self = {
+        content: {
+          before: [],
+          after: []
         },
-        tabs: {
-          // template: ''
-          // templateUrl: ''
-        },
-        pane: {
-          // template: ''
-          // templateUrl: ''
+        options: {
+          cls: {
+            missing: 'error'
+          },
+          tabs: {
+            // template: ''
+            // templateUrl: ''
+          },
+          pane: {
+            // template: ''
+            // templateUrl: ''
+          }
         }
       };
 
-      this.configure = function (opts) {
-        angular.extend(options, opts);
+      this.configure = function (options) {
+        angular.extend(self.options, options);
+      };
+
+      this.content = {
+        before: function (template) {
+          self.content.before.push(template);
+        },
+        after: function (template) {
+          self.content.after.push(template);
+        }
       };
 
       this.$get = function () {
-        return options;
+        return self;
       };
     })
 
@@ -72,6 +87,7 @@
               pane.selected = false;
             });
             pane.selected = true;
+            $scope.current.snippet = pane.snippet;
           };
 
           this.addPane = function (pane) {
@@ -87,7 +103,7 @@
             }
           };
         }]
-      }, snippets.tabs);
+      }, snippets.options.tabs);
     }])
 
   /**
@@ -116,7 +132,7 @@
         link: function (scope, element, attrs, tabsCtrl) {
           tabsCtrl.addPane(scope);
         }
-      }, snippets.pane);
+      }, snippets.options.pane);
     }])
 
     .directive('snippets', ['$templateRequest', '$parse', 'snippets', function ($templateRequest, $parse, snippets) {
@@ -125,13 +141,15 @@
         scope: true,
         transclude: true,
         template: '<tabs>' +
-        '<div>' +
-        '<pane snippet="item" index="$index" ng-repeat="item in items" repeat-done="prism()"><pre class="code language-{{item.type}}" ng-bind="item.content"></pre></pane>' +
-        '<div>' +
-        '<div ng-transclude></div>' +
-        '</tabs>',
-        link: function (scope, elem, attrs) {
-          var files = $parse(attrs.files)(scope),
+                    '<div>' +
+                      '<pane snippet="item" index="$index" ng-repeat="item in items" repeat-done="prism()"><pre class="code language-{{item.type}}"><code class="code language-{{item.type}}" ng-bind="item.content"></code></pre></pane>' +
+                    '<div>' +
+                      snippets.content.before.join("") +
+                      '<div ng-transclude></div>' +
+                      snippets.content.after.join("") +
+                  '</tabs>',
+        controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
+          var files = $parse($attrs.files)($scope),
             done = 0,
             items = [],
 
@@ -147,8 +165,10 @@
               'psm1': 'powershell'
             };
 
-          scope.prism = function () {
-            angular.forEach(elem.find("pre"), function (pre) {
+          $scope.current = {};
+
+          $scope.prism = function () {
+            angular.forEach($element.find("pre"), function (pre) {
               Prism.highlightElement(pre);
             });
           };
@@ -158,26 +178,26 @@
               var ext = name.replace(/^.*\./, '').toLowerCase(),
                 item = {name: name, type: extensions[ext] || ext};
               items.push(item);
-              $templateRequest((attrs.path ? attrs.path + '/' : '') + name, true)
+              $templateRequest(($attrs.path ? $attrs.path + '/' : '') + name, true)
                 .then(
                 function (content) {
                   item.content = content;
                 },
                 function () {
-                  item.cls = (item.cls || '') + ' ' + snippets.cls.missing;
+                  item.cls = (item.cls || '') + ' ' + snippets.options.cls.missing;
                   item.disabled = true;
                 }
               )
                 .finally(function () {
                   done++;
                   if (done === files.length) {
-                    scope.items = items;
-                    scope.path = attrs.path + '/';
+                    $scope.items = items;
+                    $scope.path = $attrs.path + '/';
                   }
                 });
             });
           }
-        }
+        }]
       }
     }])
 
