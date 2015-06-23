@@ -10,6 +10,7 @@
     "**/.*",
     "assets",
     "demo",
+    "tests",
     "src",
     "*.json",
     "gulpfile.js",
