@@ -13,26 +13,41 @@
    * Configure snippets by providing templates / templatesUrl
    */
     .provider('snippets', function () {
-      var options = {
-        cls: {
-          missing: 'error'
+      var self = {
+        content: {
+          before: [],
+          after: []
         },
-        tabs: {
-          // template: ''
-          // templateUrl: ''
-        },
-        pane: {
-          // template: ''
-          // templateUrl: ''
+        options: {
+          cls: {
+            missing: 'error'
+          },
+          tabs: {
+            // template: ''
+            // templateUrl: ''
+          },
+          pane: {
+            // template: ''
+            // templateUrl: ''
+          }
         }
       };
 
-      this.configure = function (opts) {
-        angular.extend(options, opts);
+      this.configure = function (options) {
+        angular.extend(self.options, options);
+      };
+
+      this.content = {
+        before: function (template) {
+          self.content.before.push(template);
+        },
+        after: function (template) {
+          self.content.after.push(template);
+        }
       };
 
       this.$get = function () {
-        return options;
+        return self;
       };
     })
 
@@ -87,7 +102,7 @@
             }
           };
         }]
-      }, snippets.tabs);
+      }, snippets.options.tabs);
     }])
 
   /**
@@ -116,7 +131,7 @@
         link: function (scope, element, attrs, tabsCtrl) {
           tabsCtrl.addPane(scope);
         }
-      }, snippets.pane);
+      }, snippets.options.pane);
     }])
 
     .directive('snippets', ['$templateRequest', '$parse', 'snippets', function ($templateRequest, $parse, snippets) {
@@ -125,11 +140,13 @@
         scope: true,
         transclude: true,
         template: '<tabs>' +
-        '<div>' +
-        '<pane snippet="item" index="$index" ng-repeat="item in items" repeat-done="prism()"><pre class="code language-{{item.type}}" ng-bind="item.content"></pre></pane>' +
-        '<div>' +
-        '<div ng-transclude></div>' +
-        '</tabs>',
+                    '<div>' +
+                      '<pane snippet="item" index="$index" ng-repeat="item in items" repeat-done="prism()"><pre class="code language-{{item.type}}"><code class="code language-{{item.type}}" ng-bind="item.content"></code></pre></pane>' +
+                    '<div>' +
+                      snippets.content.before.join("") +
+                      '<div ng-transclude></div>' +
+                      snippets.content.after.join("") +
+                  '</tabs>',
         link: function (scope, elem, attrs) {
           var files = $parse(attrs.files)(scope),
             done = 0,
@@ -164,7 +181,7 @@
                   item.content = content;
                 },
                 function () {
-                  item.cls = (item.cls || '') + ' ' + snippets.cls.missing;
+                  item.cls = (item.cls || '') + ' ' + snippets.options.cls.missing;
                   item.disabled = true;
                 }
               )
