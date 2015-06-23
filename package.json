@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/angular-snippets.min.js",
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start --single-run"
+    "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,8 @@
     "karma": "^0.12.36",
     "karma-chai": "^0.1.0",
     "karma-mocha": "^0.2.0",
-    "mocha": "^2.2.5"
+    "karma-phantomjs-launcher": "^0.2.0",
+    "mocha": "^2.2.5",
+    "phantomjs": "^1.9.17"
   }
 }
