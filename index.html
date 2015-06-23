@@ -99,6 +99,20 @@
   &lt;pane snippet="{name: 'run'}"&gt;&lt;iframe src="snippets/index.html"&gt;&lt;/iframe&gt;&lt;/pane&gt;
 &lt;/snippets&gt;</code></pre>
 
+        <h2>Description</h2>
+        The <em>snippets</em> directive use the following template:
+        <pre><code class="language-markup">
+&lt;tabs&gt;
+  &lt;div&gt;
+    &lt;pane snippet="item" index="$index" ng-repeat="item in items" repeat-done="prism()"&gt;&lt;pre class="code language-{{item.type}}" ng-bind="item.content"&gt;&lt;/pre&gt;&lt;/pane&gt;
+  &lt;div&gt;
+  &lt;div ng-transclude&gt;&lt;/div&gt;
+&lt;/tabs&gt;
+        </code></pre>
+        The two directives <em>tabs</em> and <em>pane</em> templates can be set using the <em>snippetsProvider</em> or one of the themes.
+
+
+
         <h2>API</h2>
         <h3>Provider</h3>
         <h4>snippetsProvider</h4>
