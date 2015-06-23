@@ -87,6 +87,7 @@
               pane.selected = false;
             });
             pane.selected = true;
+            $scope.current.snippet = pane.snippet;
           };
 
           this.addPane = function (pane) {
@@ -147,8 +148,8 @@
                       '<div ng-transclude></div>' +
                       snippets.content.after.join("") +
                   '</tabs>',
-        link: function (scope, elem, attrs) {
-          var files = $parse(attrs.files)(scope),
+        controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
+          var files = $parse($attrs.files)($scope),
             done = 0,
             items = [],
 
@@ -164,8 +165,10 @@
               'psm1': 'powershell'
             };
 
-          scope.prism = function () {
-            angular.forEach(elem.find("pre"), function (pre) {
+          $scope.current = {};
+
+          $scope.prism = function () {
+            angular.forEach($element.find("pre"), function (pre) {
               Prism.highlightElement(pre);
             });
           };
@@ -175,7 +178,7 @@
               var ext = name.replace(/^.*\./, '').toLowerCase(),
                 item = {name: name, type: extensions[ext] || ext};
               items.push(item);
-              $templateRequest((attrs.path ? attrs.path + '/' : '') + name, true)
+              $templateRequest(($attrs.path ? $attrs.path + '/' : '') + name, true)
                 .then(
                 function (content) {
                   item.content = content;
@@ -188,13 +191,13 @@
                 .finally(function () {
                   done++;
                   if (done === files.length) {
-                    scope.items = items;
-                    scope.path = attrs.path + '/';
+                    $scope.items = items;
+                    $scope.path = $attrs.path + '/';
                   }
                 });
             });
           }
-        }
+        }]
       }
     }])
 
