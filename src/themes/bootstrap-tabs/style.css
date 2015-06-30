@@ -1,0 +1,21 @@
+snippets-tabs .nav>li>a i{
+  margin-right: 5px;
+}
+snippets-tabs .nav>li.error>a,
+snippets-tabs .nav>li.error>a:focus,
+snippets-tabs .nav>li.error>a:hover {
+  color: red;
+  text-decoration: none;
+  background-color: transparent;
+  cursor: not-allowed;
+}
+snippets-tabs .error a:after {
+  font-size: 10px;
+  content: " (404)";
+}
+snippets-tabs .tab-pane:not(.active) {
+  display: none;
+}
+snippets-tabs pre {
+  max-height: 300px;
+}

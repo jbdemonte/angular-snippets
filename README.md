@@ -7,16 +7,29 @@
 Angular directives to display code.
  
 - Use [Prism](http://prismjs.com/) syntax highlighter
-- Fully configurable by templates and css
+- Fully configurable by themes
+- Load file from attribute list or using JSON manifest
 
-## Example
+## Examples
 
-    <snippets path="snippets/demo" files="['index.html', 'app.js', 'missing.css']">
-      <pane snippet="{name: 'run', icon: 'fa-cog'}"><iframe src="snippets/demo/index.html"></iframe></pane>
-    </snippets>
+### Using file list in attribute and bootstrap-tabs theme 
+
+    <snippets path="snippets/demo" files="['index.html', 'app.js', 'missing.css']"></snippets>
 
 ![screenshot](assets/screenshot.png)
 
+
+### Using manifest and bootstrap-buttons theme 
+
+    <snippets path="snippets/demo1/">
+      <snippets-pane snippet="{name: 'Explain', selected: true, cls:'pull-right', icon: 'glyphicon glyphicon-file'}">
+        <div class="custom">
+          ...
+        </div>
+      </snippets-pane>
+    </snippets>
+
+![screenshot](assets/screenshot2.png)
 
 # Legal
 

@@ -19,23 +19,11 @@ describe('Provider', function () {
     inject(function () {});
   });
 
-  it('tests the internal functions', function () {
+  it('tests the content inclusion', function () {
 
     expect(provider).not.to.be.an('undefined');
 
-    provider.configure({
-       cls: {
-         missing: 'cls'
-       },
-       tabs: {
-         templateUrl: 'tabsUrl',
-         template: 'tabs'
-       },
-       pane: {
-         templateUrl: 'paneUrl',
-         template: 'pane'
-       }
-     });
+    provider.configure({});
 
     provider.content.before('AA');
     provider.content.before('BB');
@@ -44,15 +32,8 @@ describe('Provider', function () {
 
     var snippets = provider.$get();
 
-    expect(snippets.options.cls.missing).to.be.equal('cls');
-    expect(snippets.options.tabs.templateUrl).to.be.equal('tabsUrl');
-    expect(snippets.options.pane.templateUrl).to.be.equal('paneUrl');
-    expect(snippets.options.tabs.template).to.be.equal('tabs');
-    expect(snippets.options.pane.template).to.be.equal('pane');
-
     expect(snippets.content.before).to.deep.equal(['AA', 'BB']);
     expect(snippets.content.after).to.deep.equal(['CC', 'DD']);
   });
-
 
 });

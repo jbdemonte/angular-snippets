@@ -14,9 +14,9 @@ gulp.task("main", function() {
  * Build minified version
  */
 gulp.task("uglify", ["main"], function() {
-  return gulp.src("dist/angular-snippets.js")
+  return gulp.src("dist/**/*.js")
     .pipe(uglify({preserveComments: "some"}))
-    .pipe(rename("angular-snippets.min.js"))
+    .pipe(rename({extname: ".min.js"}))
     .pipe(gulp.dest("dist/"));
 });
 

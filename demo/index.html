@@ -8,14 +8,34 @@
     <meta name="description" content="Angular-snippets : AngularJS directives to display source code with tabs and syntax highlighter (prism)">
     <link rel="stylesheet" type="text/css" media="screen" href="vendors/prism/prism.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" media="screen" href="../dist/themes/bootstrap/style.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../dist/themes/bootstrap-buttons/style.css">
 
     <script src="vendors/prism/prism.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="../dist/angular-snippets.min.js"></script>
-    <script src="../dist/themes/bootstrap/theme.js"></script>
+    <script src="../dist/themes/bootstrap-buttons/theme.min.js"></script>
     <script>
-      angular.module('MyApp', ['Snippets', 'SnippetsThemeBootstrap']);
+      angular.module('MyApp', ['Snippets', 'SnippetsThemeBootstrapButtons'])
+
+        // Append some pane before the transclusion content (before, because of the right align)
+          .config(function(snippetsProvider) {
+            snippetsProvider.content.before(
+                "<snippets-pane snippet='" + angular.toJson({
+                  name: 'Run',
+                  icon: 'glyphicon glyphicon-play-circle',
+                  cls: 'pull-right',
+                  run: true
+                }) + "'><iframe ng-if='current.snippet.run' ng-src='{{trustSrc(path)}}'></iframe></snippets-pane>"
+            );
+          })
+
+          .controller('MyCtrl', function ($scope, $sce) {
+            $scope.trustSrc = function(src) {
+              return $sce.trustAsResourceUrl(src || '.');
+            };
+          })
+      ;
+
     </script>
     <style>
       body {
@@ -25,17 +45,34 @@
         width: 100%;
         height: 300px;
         background-color: #dadada;
+        margin: 10px 0;
+      }
+      .custom {
+        border: 1px solid #c0c0c0;
+        border-radius: 3px;
+        min-height: 300px;
+        margin: 10px 0;
+        padding: 10px;
       }
     </style>
   </head>
 
-  <body>
-    <h2>Current page</h2>
-    <snippets files="['index.html', 'unknown.js']"></snippets>
+  <body ng-controller="MyCtrl">
 
-    <h2>Code snippets</h2>
-    <snippets path="snippets/" files="['index.html', 'app.js']">
-      <pane snippet="{name: 'run'}"><iframe src="snippets/index.html"></iframe></pane>
+    <h2>Code snippets using manifest</h2>
+    <snippets path="snippets/demo1/"></snippets>
+
+    <h2>Code snippets using files list</h2>
+    <snippets path="snippets/demo2/" files="['index.html', 'app.js']">
+      <snippets-pane snippet="{name: 'Explain', selected: true, cls:'pull-right', icon: 'glyphicon glyphicon-file'}">
+        <div class="custom">
+          Panes can be added with any content, and icon can be set, but because of the transclusion, we can't use snippets scope properties or methods there.
+        </div>
+      </snippets-pane>
     </snippets>
+
+    <h2>Current page</h2>
+    <snippets files="['index.html', 'unknown.js']" content-before-disabled></snippets>
+
   </body>
 </html>
