@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="description" content="Angular-snippets : AngularJS directives to display source code with tabs and syntax highlighter (prism)">
     <link rel="stylesheet" type="text/css" media="screen" href="vendors/prism/prism.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="javascripts/bootstrap-tabs/style.css">
+
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/style.css">
 
@@ -17,6 +19,7 @@
     <script src="vendors/prism/prism.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="javascripts/angular-snippets.min.js"></script>
+    <script src="javascripts/bootstrap-tabs/theme.min.js"></script>
     <script src="javascripts/app.js"></script>
 
   </head>
@@ -43,27 +46,26 @@
       <section id="main_content" class="inner">
           <h1><a id="angular-snippets" class="anchor" href="#angular-snippets" aria-hidden="true"><span class="octicon octicon-link"></span></a>angular-snippets</h1>
 
-          <p>Angular direct-ives to display code.</p>
+          <p>Angular directives to display code with.</p>
 
           <ul>
             <li>Use <a href="http://prismjs.com/">Prism</a> syntax highlighter</li>
-            <li>Fully configurable by templates and css</li>
             <li>Support theme</li>
           </ul>
 
         <h2>Example</h2>
 
         <snippets path="snippets/demo" files="['index.html', 'app.js', 'missing.css']">
-          <pane snippet="{name: 'Current code', icon: 'fa-code', cls: 'right'}">
+          <snippets-pane snippet="{name: 'run', icon: 'fa fa-cog', cls: 'pull-right'}"><iframe src="snippets/demo/index.html"></iframe></snippets-pane>
+          <snippets-pane snippet="{name: 'Current code', icon: 'fa fa-code', cls: 'pull-right'}">
             <pre><code class="language-javascript">
 &lt;snippets path="snippets/demo" files="['index.html', 'app.js', 'missing.css']"&gt;
-  &lt;pane snippet="{name: 'run', icon: 'fa-cog'}"&gt;
+  &lt;snippets-pane snippet="{name: 'run', icon: 'fa-cog'}"&gt;
     &lt;iframe src="snippets/demo/index.html"&gt;&lt;/iframe&gt;
-  &lt;/pane&gt;
+  &lt;/snippets-pane&gt;
 &lt;/snippets&gt;
             </code></pre>
-          </pane>
-          <pane snippet="{name: 'run', icon: 'fa-cog', cls: 'right'}"><iframe src="snippets/demo/index.html"></iframe></pane>
+          </snippets-pane>
         </snippets>
 
         <h2>Getting started</h2>
@@ -83,83 +85,140 @@
 &lt;script src="path/to/prism/prism.js"&gt;&lt;/script&gt;
 &lt;script src="path/to/angular-snippets.min.js"&gt;&lt;/script&gt;</code></pre>
 
-        You can use official themes, if so, you also need to load it.
+        <em>Snippets</em> need one theme, you can use one of the official themes or create your own. Load the theme:
         <pre><code class="language-markup">
-&lt;link rel="stylesheet" type="text/css" href="path/to/themes/bootstrap/style.css"&gt;
-&lt;script src="path/to/themes/bootstrap/theme.js"&gt;&lt;/script&gt;</code></pre>
+&lt;link rel="stylesheet" type="text/css" href="path/to/themes/bootstrap-tabs/style.css"&gt;
+&lt;script src="path/to/themes/bootstrap-tabs/theme.js"&gt;&lt;/script&gt;</code></pre>
 
         <h2>Utilisation</h2>
         <h3>Dependency</h3>
-        Add into your application definition, the module and, if so, the theme dependencies:
-        <pre><code class="language-javascript">angular.module('MyApp', ['Snippets', 'SnippetsThemeBootstrap']);</code></pre>
+        Add into your application definition, the module and the theme dependencies:
+        <pre><code class="language-javascript">angular.module('MyApp', ['Snippets', 'SnippetsThemeBootstrapTabs']);</code></pre>
 
-        Start to use it in your HTML page:
+        <h3>Usage</h3>
+        <p>
+          This module can either use a file list from the attribute <em>files</em> or download a manifest (default is <em>manifest.json</em>) and use its <em>files</em> property.<br />
+          Both may depends on a <em>path</em> attribute.
+        </p>
+        <h4>File list</h4>
         <pre><code class="language-markup">
-&lt;snippets path="snippets/" files="['index.html', 'app.js']"&gt;
-  &lt;pane snippet="{name: 'run'}"&gt;&lt;iframe src="snippets/index.html"&gt;&lt;/iframe&gt;&lt;/pane&gt;
-&lt;/snippets&gt;</code></pre>
-
-        <h2>Description</h2>
-        The <em>snippets</em> directive use the following template:
+&lt;snippets path="snippets/" files="['index.html', 'app.js']"&gt;&lt;/snippets&gt;</code></pre>
+        <h4>Manifest</h4>
         <pre><code class="language-markup">
-&lt;tabs&gt;
-  &lt;div&gt;
-    &lt;pane snippet="item" index="$index" ng-repeat="item in items" repeat-done="prism()"&gt;&lt;pre class="code language-{{item.type}}" ng-bind="item.content"&gt;&lt;/pre&gt;&lt;/pane&gt;
-  &lt;div&gt;
-  &lt;div ng-transclude&gt;&lt;/div&gt;
-&lt;/tabs&gt;
-        </code></pre>
-        The two directives <em>tabs</em> and <em>pane</em> templates can be set using the <em>snippetsProvider</em> or one of the themes.
+&lt;snippets path="snippets/"&gt;&lt;/snippets&gt;</code></pre>
+        width <em>manifest.json</em>:
+        <pre><code class="language-javascript">
+{
+  "files": [
+    "index.html",
+    "app.js"
+  ]
+}</code></pre>
 
 
 
         <h2>API</h2>
         <h3>Provider</h3>
         <h4>snippetsProvider</h4>
-        If you don't use an official theme or want to extend it, you can use <em>snippetsProvider</em> to configure the module:
-        <pre><code class="language-javascript">
-app.config(function(snippetsProvider) {
-  snippetsProvider.configure({
-    cls: {
-      missing: 'error'
-    },
-    tabs: {
-      //template: '...',
-      templateUrl: 'partials/tabs.html'
-    },
-    pane: {
-      //template: '...',
-      templateUrl: 'partials/pane.html'
-    }
-  });
-});</code></pre>
+        <em>snippetsProvider</em> allows to configure the module by extending default options and providing content to append.
 
-        <h3>Directive</h3>
-        <h3>snippets</h3>
-            <em>snippets</em> is the main directive.<br />
-            Basically, it accepts an array of filenames, download these files using <a href="https://docs.angularjs.org/api/ng/service/$templateRequest">$templateRequest</a>, highlight it using <a href="http://prismjs.com/">Prism</a> and display them.
-
-          <params>
-            <item name="path" type="string" optional>path to prepend on each filename, <br />e.g. <code class="language-javascript">path="snippets/"</code></item>
-            <item name="files" type="array">Array of string. File names list to display, <br />e.g. <code class="language-javascript">files="['index.html', 'script.js']"</code></item>
-          </params>
-
-        <h3>pane</h3>
-        <em>pane</em> is a file element to display.<br />
-        Pane elements provided by ng-repeat on <em>snippets.files</em> provide in the scope:
         <params>
-          <item name="snippet" type="object">
-            File properties
+          <item name="configure" type="function">
+            Configure module
+            configure(option:<a href="#module-options">ModuleOptions</a>)
+          </item>
+          <item name="content" type="object">
+            <a href="#content-handlers">Content handlers</a>
           </item>
         </params>
-        Where <em>snippet</em> contains:
+
+        <strong id="module-options">ModuleOptions</strong> (object)
+        <params>
+          <item name="manifest" type="string" optional>
+            Name of the manifest JSON file (may include path)<br />
+            The manifest have to include a main key <em>files</em> as an array of string.
+          </item>
+          <item name="snippets" type="object" optional>
+            Object used to extend <em>snippets</em> directive.<br />
+            Basically, used to define the directive <em>template</em> property by the themes.
+          </item>
+          <item name="highlight" type="function" optional>
+            Function used to highlight the code.<br />
+            function (element: <a href="https://docs.angularjs.org/api/ng/function/angular.element">angular.element</a>)<br />
+            Return: <em>None</em>
+          </item>
+          <item name="type" type="function" optional>
+            Cast function to convert file extension to file type.<br />
+            function (extension: String)<br />
+            Return: <em>String</em>
+          </item>
+        </params>
+
+        <strong id="content-handlers">Content handlers</strong> (object)
+        <params>
+          <item name="before" type="function">
+            Append content before main transclusion.<br />
+            function (template: String) <br />
+            Return <em>None</em>
+          </item>
+          <item name="after" type="function">
+            Append content after main transclusion.<br />
+            function (template: String) <br />
+            Return <em>None</em>
+          </item>
+        </params>
+
+
+        <h3>Directives</h3>
+
+        <h4>snippets</h4>
+        Type: element<br />
+        Basically, it use an array of filenames, download these files using <a href="https://docs.angularjs.org/api/ng/service/$templateRequest">$templateRequest</a> and highlight it using <a href="http://prismjs.com/">Prism</a>.
+
+        <params>
+          <item name="path" type="string" optional>
+            path to prepend on manifest or file path, <br />
+            e.g. <code class="language-javascript">path="snippets"</code>
+          </item>
+          <item name="files" type="array" optional>
+            Array of string. File names list to display, <br />
+            e.g. <code class="language-javascript">files="['index.html', 'script.js']"</code>
+          </item>
+        </params>
+
+        <h4>content-before-disabled</h4>
+        Type: attribute<br />
+        Disable for the current instance the <a href="#content-handlers">global before content</a> inclusion.
+
+        <h4>content-after-disabled</h4>
+        Type: attribute<br />
+        Disable for the current instance the <a href="#content-handlers">global after content</a> inclusion.
+
+
+        <h2>Themes</h2>
+        Several themes are available, but you can create yours using its scope properties.<br />
+        <h3>snippets scope</h3>
+        <params>
+          <item name="done" type="boolean">
+            Set to true when all files have been processed. <br />
+            Stay to false if neither attribute <em>files</em> nor manifest file are available.
+          </item>
+          <item name="path" type="string" optional>
+            Path attribute.
+          </item>
+          <item name="items" type="array">
+            Array of <a href="#filedata">FileData</a>
+          </item>
+        </params>
+
+        <strong id="filedata">FileData</strong> (object)
         <params>
           <item name="name" type="string">File name</item>
-          <item name="type" type="string">Prism type, e.g. <em>javascript</em></item>
-          <item name="content" type="string">File content</item>
-          <item name="cls" type="string" optional>Class to add (if file is not available, add default cls.missing class)</item>
-          <item name="disabled" type="boolean" optional>Tab has to be disabled (if file is not available)</item>
+          <item name="type" type="string">File type (depends on extension)</item>
+          <item name="content" type="string" optional>File content</item>
+          <item name="error" type="boolean" optional>Set to true if file load has failed (404)</item>
         </params>
+
 
 
 

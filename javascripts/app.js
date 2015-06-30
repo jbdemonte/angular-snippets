@@ -1,15 +1,4 @@
-angular.module('MyApp', ['Snippets'])
-
-  .config(function(snippetsProvider) {
-    snippetsProvider.configure({
-      tabs: {
-        templateUrl: 'partials/tabs.html'
-      },
-      pane: {
-        templateUrl: 'partials/pane.html'
-      }
-    });
-  })
+angular.module('MyApp', ['Snippets', 'SnippetsThemeBootstrapTabs'])
 
   .filter('safe', ['$sce', function($sce){
     return function(text) {
@@ -27,6 +16,9 @@ angular.module('MyApp', ['Snippets'])
         var items = $scope.items = [];
         this.add = function(item) {
           items.push(item);
+          items.sort(function (a, b) {
+            return a.name < b.name ? -1 : 1;
+          });
         }
       }
     };
@@ -39,7 +31,7 @@ angular.module('MyApp', ['Snippets'])
       link: function (scope, element, attrs, ctrl) {
         var item = {
           name: attrs.name,
-          types: attrs.type.split(','),
+          types: (attrs.type || '').split(','),
           optional: 'optional' in attrs,
           contents: "<p>" + element.html() + "</p>"
         };

@@ -7,10 +7,6 @@ iframe {
   background: #fff;
 }
 
-.nav-tabs>li.right {
-  float: right;
-}
-
 .nav>li.error>a,
 .nav>li.error>a:focus,
 .nav>li.error>a:hover {
