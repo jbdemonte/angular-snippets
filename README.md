@@ -2,13 +2,20 @@
 
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
 
-[Project page](http://jbdemonte.github.io/angular-snippets/)
+## About
 
 Angular directives to display code.
  
 - Use [Prism](http://prismjs.com/) syntax highlighter
 - Fully configurable by themes
 - Load file from attribute list or using JSON manifest
+
+If you like this plugin give it a thumbs up at [ngmodules](http://ngmodules.org/modules/angular-snippets) or get me a [beer](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WCUX27CFV79S2).
+
+
+## Documentation
+
+[Project page](http://jbdemonte.github.io/angular-snippets/)
 
 ## Examples
 
