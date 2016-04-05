@@ -6,7 +6,7 @@ describe('Provider', function () {
   beforeEach(function () {
     // Initialize the service provider
     // by injecting it to a fake module's config block
-    var fakeModule = angular.module('test.app.config', function () {
+    var fakeModule = angular.module('test.app.config', [], function () {
     });
 
     fakeModule.config(function (snippetsProvider) {

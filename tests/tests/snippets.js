@@ -59,7 +59,7 @@ describe('snippets', function () {
 
   beforeEach(function () {
 
-    var fakeModule = angular.module('test.app.config', function () {});
+    var fakeModule = angular.module('test.app.config', [], function () {});
     fakeModule
       .config(function (snippetsProvider) {
         snippetsProvider.configure({
