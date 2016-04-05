@@ -29,7 +29,7 @@
     "prism"
   ],
   "dependencies": {
-    "angular": "1.2 - 1.4",
+    "angular": "1.2 - 1.5.x",
     "prism": "~1.0.0"
   }
 }
