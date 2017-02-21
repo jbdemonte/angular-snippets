@@ -92,7 +92,6 @@ describe('snippets', function () {
     $timeout = _$timeout_;
     $scope = $rootScope.$new();
   }));
-
   it('test path + files + template', function () {
 
     makeCallback(2);
@@ -217,7 +216,6 @@ describe('snippets', function () {
 
   });
 
-
   it('test using manifest', function () {
 
     makeCallback(2);
@@ -240,7 +238,6 @@ describe('snippets', function () {
     testContentDisabled(false, false);
 
   });
-
 
   it('test using manifest with missing files', function () {
 
@@ -265,7 +262,6 @@ describe('snippets', function () {
 
   });
 
-
   it('test using missing manifest', function () {
 
     makeCallback(2);
@@ -280,5 +276,4 @@ describe('snippets', function () {
     expect(called).to.be.equal(false);
     expect(scope.done).to.be.equal(false);
   });
-
 });

@@ -1,6 +1,6 @@
 {
   "name": "angular-snippets",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "dist/angular-snippets.min.js",
   "description": "AngularJS directives to display source code with tabs and syntax highlighter (prism)",
   "repository": {
@@ -29,7 +29,7 @@
     "prism"
   ],
   "dependencies": {
-    "angular": "1.2 - 1.5.x",
+    "angular": "1.2 - 1.6.x",
     "prism": "~1.0.0"
   }
 }

@@ -162,6 +162,9 @@
                     }
                   });
               });
+            },
+            function (reason) {
+              // swallow error
             }
           );
         }]
