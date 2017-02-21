@@ -1,7 +1,7 @@
 /*!
  *  angular-snippets
- *  Version   : 2.0.0
- *  Date      : 2015-06-30
+ *  Version   : 2.0.1
+ *  Date      : 2017-02-31
  *  Author    : DEMONTE Jean-Baptiste
  *  Contact   : jbdemonte@gmail.com
  *  Licence   : GPL v3 : http://www.gnu.org/licenses/gpl.html
@@ -162,6 +162,9 @@
                     }
                   });
               });
+            },
+            function (reason) {
+              // swallow error
             }
           );
         }]
